@@ -9,12 +9,9 @@ var bazaarConnection = bazaar.login({
     password: argv[2]
 })
 
-bazaarConnection.environments(function (err, result) {
-    if (err) {
-        console.error("Error: %j", err);
-    } else {
+bazaarConnection.environments()
+    .then(function (result) {
         result.forEach(function (env) {
             console.log("%s %s", env.environment_id, env.environment_name);
         })
-    }
-})
+    });

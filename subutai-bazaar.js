@@ -10,11 +10,40 @@ var BazaarConnection = function () {
     this.cookie = null;
 }
 
-BazaarConnection.prototype.restRequest = function(method, path, callback) {
+BazaarConnection.prototype.restRequest = function (method, path, callback) {
     request(this.url);
 }
 
-BazaarConnection.prototype.environments = function(callback) {
+BazaarConnection.prototype.environments = function (callback) {
+
+    var options = {
+        method: "GET",
+        url: this.url + "/rest/v1/client/environments",
+        headers: {
+            "Cookie": this.cookie
+        }
+    };
+
+    if (callback) {
+        request(options, function(err, resp, body) {
+            if (err) {
+                callback(err, null);
+            } else {
+                callback(null, JSON.parse(body));
+            }
+        });
+    } else {
+        return new Promise(function (resolve, reject) {
+            // Do async job
+            request.get(options, function (err, resp, body) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(JSON.parse(body));
+                }
+            })
+        })
+    }
 
 }
 
@@ -34,14 +63,14 @@ exports.login = function (initObject) {
 
     });
 
-    if (res.statusCode  === 200) {
+    if (res.statusCode === 200) {
         var bazaarConnection = new BazaarConnection();
         bazaarConnection.url = initObject.url;
         bazaarConnection.cookie = res.headers["set-cookie"][0];
 
         return bazaarConnection;
     } else {
-        throw({error: "Wrong statuscode"});
+        throw ({ error: "Wrong statuscode" });
     }
 
 }
