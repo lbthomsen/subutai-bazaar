@@ -55,6 +55,6 @@ bazaarConnection.environments()
 
 # Documentation
 
-| Method     | Parameters | Result |
-| ---------- | ---------- | ------ |
+| Method     | Parameters | Result                                 |
+| ---------- | ---------- | -------------------------------------- |
 | environments | none     | Array containing all user environments |
