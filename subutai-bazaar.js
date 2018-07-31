@@ -8,11 +8,7 @@ var sr = require("sync-request");
 var BazaarConnection = function () {
     this.url = null;
     this.cookie = null;
-}
-
-BazaarConnection.prototype.restRequest = function (method, path, callback) {
-    request(this.url);
-}
+}   
 
 BazaarConnection.prototype.environments = function (callback) {
 
