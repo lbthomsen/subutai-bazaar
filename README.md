@@ -52,3 +52,9 @@ bazaarConnection.environments()
         })
     });
 ```
+
+# Documentation
+
+| Method     | Parameters | Result |
+| ---------- | ---------- | ------ |
+| environments | none     | Array containing all user environments |
