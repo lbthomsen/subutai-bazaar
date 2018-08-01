@@ -172,6 +172,22 @@ BazaarConnection.prototype.modifyEnvironment = function (change, callback) {
 }
 
 /**
+ * Delete existing environment.
+ * @param {string} environmentId 
+ * @param {function} callback - optional
+ */
+BazaarConnection.prototype.deleteEnvironment = function (environmentId, callback) {
+
+    var options = {
+        method: "DELETE",
+        url: this.url + restPath + "environments/" + environmentId
+    };
+
+    return this.handleRequest(options, callback);
+
+}
+
+/**
  * Establish an authenticated connection to Bazaar - return a BazaarConnection instance.
  * @param {object} initObject 
  */
