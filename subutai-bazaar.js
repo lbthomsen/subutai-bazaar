@@ -118,6 +118,12 @@ BazaarConnection.prototype.updatePeerScope = function (peerId, scope, callback) 
 
 }
 
+/**
+ * Update the name of a peer
+ * @param {string} peerId 
+ * @param {string} name 
+ * @param {function} callback - optional
+ */
 BazaarConnection.prototype.updatePeerName = function (peerId, name, callback) {
 
     var options = {
@@ -132,6 +138,11 @@ BazaarConnection.prototype.updatePeerName = function (peerId, name, callback) {
 
 }
 
+/**
+ * Create a new environment.
+ * @param {object} environment 
+ * @param {function} callback - optional
+ */
 BazaarConnection.prototype.createEnvironment = function (environment, callback) {
 
     var options = {
@@ -147,6 +158,10 @@ BazaarConnection.prototype.createEnvironment = function (environment, callback) 
 
 }
 
+/**
+ * Establish an authenticated connection to Bazaar - return a BazaarConnection instance.
+ * @param {object} initObject 
+ */
 exports.getConnection = function (initObject) {
 
     var bazaarConnection = new BazaarConnection();
