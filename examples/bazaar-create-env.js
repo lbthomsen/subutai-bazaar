@@ -11,11 +11,13 @@ var bazaarConnection = bazaar.getConnection({
 })
 
 bazaarConnection.createEnvironment({
-    environmentName: "Testing 1 2 3", 
+    environmentName: "foo", 
     nodes: [{
             peerId: "744D04AEDEF1811210613E2197CD0B46C050EEDE", 
+            resourceHostId: "9EADD7962582F7ACFB7A3352D88EF8E084CB4449",
             hostname: "h1", 
             templateName: "debian-stretch", 
+            templateId: "QmQZMYoPx6uQcRREfQWUt9CKubhy8bka3NyB9hshSi8NKZ",
             quota: {
                 containerSize: "SMALL"
             }

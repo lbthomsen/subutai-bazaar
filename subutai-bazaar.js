@@ -37,6 +37,11 @@ BazaarConnection.prototype.handleRequest = function(options, callback) {
 
     if (this.debug) request.debug = true;
 
+    if (this.cookie) {
+        if (!options.headers) options.headers = {};
+        if (!options.headers.Cookie) options.headers.Cookie = this.cookie;
+    }
+
     if (callback) {
         request(options, function (err, resp, body) {
             if (err) {
@@ -69,10 +74,7 @@ BazaarConnection.prototype.getEnvironments = function (callback) {
 
     var options = {
         method: "GET",
-        url: this.url + restPath + "environments",
-        headers: {
-            "Cookie": this.cookie
-        }
+        url: this.url + restPath + "environments"
     };
 
     return this.handleRequest(options, callback);
@@ -88,10 +90,7 @@ BazaarConnection.prototype.getPeers = function (spec, callback) {
 
     var options = {
         method: "GET",
-        url: this.url + restPath + "peers/" + spec,
-        headers: {
-            "Cookie": this.cookie
-        }
+        url: this.url + restPath + "peers/" + spec
     };
 
     return this.handleRequest(options, callback);
@@ -108,10 +107,7 @@ BazaarConnection.prototype.updatePeerScope = function (peerId, scope, callback) 
 
     var options = {
         method: "PUT",
-        url: this.url + restPath + "peers/" + peerId + "/scope/" + scope,
-        headers: {
-            "Cookie": this.cookie
-        }
+        url: this.url + restPath + "peers/" + peerId + "/scope/" + scope
     };
 
     return this.handleRequest(options, callback);
@@ -128,10 +124,7 @@ BazaarConnection.prototype.updatePeerName = function (peerId, name, callback) {
 
     var options = {
         method: "PUT",
-        url: this.url + restPath + "peers/" + peerId + "/name/" + scope,
-        headers: {
-            "Cookie": this.cookie
-        }
+        url: this.url + restPath + "peers/" + peerId + "/name/" + scope
     };
 
     return this.handleRequest(options, callback);
@@ -149,7 +142,7 @@ BazaarConnection.prototype.createEnvironment = function (environment, callback) 
         method: "POST",
         url: this.url + restPath + "environments",
         headers: {
-            "Cookie": this.cookie
+            "content-type": "application/json"
         }, 
         body: JSON.stringify(environment)
     };
