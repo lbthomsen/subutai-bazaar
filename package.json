@@ -1,6 +1,6 @@
 {
   "name": "subutai-bazaar",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Subutai Bazaar Node API",
   "main": "subutai-bazaar.js",
   "scripts": {
