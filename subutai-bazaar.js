@@ -152,6 +152,26 @@ BazaarConnection.prototype.createEnvironment = function (environment, callback) 
 }
 
 /**
+ * Modify existing environment.
+ * @param {object} change 
+ * @param {function} callback - optional
+ */
+BazaarConnection.prototype.modifyEnvironment = function (change, callback) {
+
+    var options = {
+        method: "PUT",
+        url: this.url + restPath + "environments",
+        headers: {
+            "content-type": "application/json"
+        }, 
+        body: JSON.stringify(change)
+    };
+
+    return this.handleRequest(options, callback);
+
+}
+
+/**
  * Establish an authenticated connection to Bazaar - return a BazaarConnection instance.
  * @param {object} initObject 
  */
