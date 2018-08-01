@@ -17,17 +17,12 @@ var restPath = "/rest/v1/client/";
 var BazaarConnection = function () {
     this.url = null;
     this.cookie = null;
+    this.debug = false;
 }
 
-BazaarConnection.prototype.getEnvironments = function (callback) {
+BazaarConnection.prototype.handleRequest = function(options, callback) {
 
-    var options = {
-        method: "GET",
-        url: this.url + restPath + "environments",
-        headers: {
-            "Cookie": this.cookie
-        }
-    };
+    if (this.debug) request.debug = true;
 
     if (callback) {
         request(options, function (err, resp, body) {
@@ -37,6 +32,7 @@ BazaarConnection.prototype.getEnvironments = function (callback) {
                 callback(null, JSON.parse(body));
             }
         });
+        return null;
     } else {
         return new Promise(function (resolve, reject) {
             // Do async job
@@ -49,6 +45,20 @@ BazaarConnection.prototype.getEnvironments = function (callback) {
             })
         })
     }
+
+}
+
+BazaarConnection.prototype.getEnvironments = function (callback) {
+
+    var options = {
+        method: "GET",
+        url: this.url + restPath + "environments",
+        headers: {
+            "Cookie": this.cookie
+        }
+    };
+
+    return this.handleRequest(options, callback);
 
 }
 
@@ -62,26 +72,50 @@ BazaarConnection.prototype.getPeers = function (spec, callback) {
         }
     };
 
-    if (callback) {
-        request(options, function (err, resp, body) {
-            if (err) {
-                callback(err, null);
-            } else {
-                callback(null, JSON.parse(body));
-            }
-        });
-    } else {
-        return new Promise(function (resolve, reject) {
-            // Do async job
-            request.get(options, function (err, resp, body) {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(JSON.parse(body));
-                }
-            })
-        })
-    }
+    return this.handleRequest(options, callback);
+
+}
+
+BazaarConnection.prototype.updatePeerScope = function (peerId, scope, callback) {
+
+    var options = {
+        method: "PUT",
+        url: this.url + restPath + "peers/" + peerId + "/scope/" + scope,
+        headers: {
+            "Cookie": this.cookie
+        }
+    };
+
+    return this.handleRequest(options, callback);
+
+}
+
+BazaarConnection.prototype.updatePeerName = function (peerId, name, callback) {
+
+    var options = {
+        method: "PUT",
+        url: this.url + restPath + "peers/" + peerId + "/name/" + scope,
+        headers: {
+            "Cookie": this.cookie
+        }
+    };
+
+    return this.handleRequest(options, callback);
+
+}
+
+BazaarConnection.prototype.createEnvironment = function (environment, callback) {
+
+    var options = {
+        method: "POST",
+        url: this.url + restPath + "environments",
+        headers: {
+            "Cookie": this.cookie
+        }, 
+        body: JSON.stringify(environment)
+    };
+
+    return this.handleRequest(options, callback);
 
 }
 
@@ -95,6 +129,8 @@ exports.getConnection = function (initObject) {
     } else if (initObject.network) {
         bazaarConnection.url = defaultBazaarUrls[initObject.network];
     }
+
+    if (initObject.debug) bazaarConnection.debug = true;
 
     if (initObject.email && initObject.password) {
 

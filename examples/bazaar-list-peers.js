@@ -5,7 +5,8 @@ var argv = process.argv.slice(2);
 
 var bazaarConnection = bazaar.getConnection({
     email: argv[0],
-    password: argv[1]
+    password: argv[1], 
+    network: "master"
 })
 
 bazaarConnection.getPeers("own", function (err, result) {
