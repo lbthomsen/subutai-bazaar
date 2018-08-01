@@ -12,16 +12,14 @@ var bazaarConnection = bazaar.getConnection({
 
 bazaarConnection.createEnvironment({
     environmentName: "Testing 1 2 3", 
-    nodes: [
-        {
+    nodes: [{
             peerId: "744D04AEDEF1811210613E2197CD0B46C050EEDE", 
             hostname: "h1", 
             templateName: "debian-stretch", 
             quota: {
                 containerSize: "SMALL"
             }
-        }
-    ]
+    }]
 }, function (err, result) {
     if (err) {
         console.error("Error: %j", err);

@@ -4,7 +4,7 @@
   "description": "Subutai Bazaar Node API",
   "main": "subutai-bazaar.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "doc": "node_modules/.bin/jsdoc -d docs subutai-bazaar.js "
   },
   "repository": {
     "type": "git",
@@ -27,5 +27,8 @@
   "dependencies": {
     "request": "^2.87.0",
     "sync-request": "^6.0.0"
+  },
+  "devDependencies": {
+    "jsdoc": "^3.5.5"
   }
 }
